@@ -11,15 +11,16 @@ public class Solution {
         int numsArraySize = numsList.size();
         int maxSubArrayLength = 0;
 
-        for (int subArraySize = 1; subArraySize <= numsArraySize; subArraySize++) {
-            for (int startIndex = numsArraySize - subArraySize; startIndex >= 0; startIndex--) {
-                List<Integer> candidateSubArray = numsList.subList(startIndex, startIndex + subArraySize);
-                if (candidateIsValid(candidateSubArray, k)) {
-                    maxSubArrayLength = candidateSubArray.size();
-                    break;
+        outer:
+            for (int subArraySize = numsArraySize; subArraySize >= 1; subArraySize--) {
+                for (int startIndex = numsArraySize - subArraySize; startIndex >= 0; startIndex--) {
+                    List<Integer> candidateSubArray = numsList.subList(startIndex, startIndex + subArraySize);
+                    if (candidateIsValid(candidateSubArray, k)) {
+                        maxSubArrayLength = candidateSubArray.size();
+                        break outer;
+                    }
                 }
             }
-        }
 
         return maxSubArrayLength;
     }
